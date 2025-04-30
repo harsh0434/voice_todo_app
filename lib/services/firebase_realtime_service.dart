@@ -49,4 +49,14 @@ class FirebaseRealtimeService {
   Future<void> removeTaskFromFirebase(String id) async {
     await _tasksRef.child(id).remove();
   }
+
+  Future<List<Todo>> getRemoteTasks() async {
+    final snapshot = await _tasksRef.get();
+    if (snapshot.value == null) return [];
+
+    final List<dynamic> tasks = snapshot.value as List<dynamic>;
+    return tasks
+        .map((task) => Todo.fromMap(task as Map<String, dynamic>))
+        .toList();
+  }
 }

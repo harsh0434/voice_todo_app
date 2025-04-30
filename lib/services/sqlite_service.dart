@@ -91,4 +91,15 @@ class SQLiteService {
     final db = await database;
     await db.delete('queued_commands', where: 'id = ?', whereArgs: [id]);
   }
+
+  static Future<Map<String, dynamic>?> getTaskById(String id) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'tasks',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    if (maps.isEmpty) return null;
+    return maps.first;
+  }
 }

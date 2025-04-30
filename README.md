@@ -4,39 +4,79 @@ A Flutter-based voice-driven todo list application that allows users to manage t
 
 ## Features
 
-- **Voice Command Support**: Add, complete, and delete tasks using natural language voice commands
-- **Offline Support**: Queue voice commands locally when offline and sync when connectivity is restored
-- **Real-time Sync**: Tasks are synchronized across devices in real-time using Firebase
-- **Audible Feedback**: Get voice confirmations for your actions and prompts for ambiguous commands
-- **Clean UI**: Modern and intuitive user interface with Material Design 3
+### Voice Command Support
+- Natural language processing for task management
+- Support for multiple command patterns:
+  - "Add task [task name]"
+  - "Complete task [task name]"
+  - "Delete task [task name]"
+  - "Remind me to [task] at [time]"
+  - "Show completed tasks"
+  - "What's due today/tomorrow"
 
-## Voice Commands
+### Offline Support
+- Voice command queueing when offline
+- Local storage using SQLite
+- Automatic sync when connectivity is restored
+- Conflict resolution using timestamps
 
-The app supports the following voice commands:
+### Real-time Sync
+- Firebase Realtime Database integration
+- Multi-device synchronization
+- Automatic conflict resolution
+- Status indicators for sync state
 
-- "Add task [task name]" - Create a new task
-- "Complete task [task name]" - Mark a task as complete
-- "Delete task [task name]" - Remove a task
+### User Experience
+- Chat-like conversation history
+- Visual status indicators
+- Audible feedback for actions
+- Clarification prompts for ambiguous commands
+- Material Design 3 UI
 
-## Technical Details
+## Technical Architecture
 
-- Built with Flutter and Dart
-- Uses Riverpod for state management
-- Implements Hive for local storage
-- Integrates Firebase for cloud synchronization
-- Features speech-to-text and text-to-speech capabilities
+### State Management
+- Riverpod for state management
+- Providers for dependency injection
+- Async state handling
+
+### Data Layer
+- SQLite for local storage
+- Firebase Realtime Database for cloud sync
+- Conflict resolution using timestamps
+- Offline-first architecture
+
+### Voice Processing
+- Web: Native SpeechRecognition API
+- Mobile: speech_to_text package
+- Text-to-speech feedback
+- Natural language command parsing
+
+### UI Components
+- Conversation bubbles for command history
+- Status indicators for sync/connectivity
+- Voice input widget
+- Task list with completion status
 
 ## Setup
 
-1. Clone the repository
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/harsh0434/voice_todo_app.git
+   ```
+
 2. Install dependencies:
    ```bash
    flutter pub get
    ```
+
 3. Configure Firebase:
    - Create a new Firebase project
    - Add your Android/iOS app to the project
-   - Download and add the configuration files
+   - Download and add the configuration files:
+     - Android: `google-services.json`
+     - iOS: `GoogleService-Info.plist`
+
 4. Run the app:
    ```bash
    flutter run
@@ -44,14 +84,46 @@ The app supports the following voice commands:
 
 ## Dependencies
 
-- flutter_riverpod: State management
-- speech_to_text: Voice recognition
-- flutter_tts: Text-to-speech
-- hive: Local storage
-- firebase_core & cloud_firestore: Cloud synchronization
-- connectivity_plus: Network status monitoring
-- uuid: Unique device identification
+- **State Management**
+  - flutter_riverpod
+  - riverpod_annotation
+
+- **Voice Processing**
+  - speech_to_text
+  - flutter_tts
+
+- **Storage & Sync**
+  - sqflite
+  - firebase_core
+  - firebase_database
+
+- **Utilities**
+  - connectivity_plus
+  - path_provider
+  - uuid
+
+## Project Structure
+
+```
+lib/
+├── models/           # Data models
+├── providers/        # State management
+├── screens/          # UI screens
+├── services/         # Business logic
+│   ├── voice/       # Voice processing
+│   ├── storage/     # Local storage
+│   └── sync/        # Cloud sync
+└── widgets/         # Reusable UI components
+```
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.

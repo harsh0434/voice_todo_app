@@ -1,0 +1,11 @@
+targets:
+  $default:
+    builders:
+      hive_generator:
+        options:
+          input_directory: lib
+          output_directory: lib
+      riverpod_generator:
+        options:
+          input_directory: lib
+          output_directory: lib 
